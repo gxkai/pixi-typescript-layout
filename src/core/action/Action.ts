@@ -5,21 +5,24 @@ import { ActionEvent } from "./ActionAPI";
 
 export class CreateShapeAction implements ActionInterface {
     private readonly _pointArr: Shape;
+    private readonly _content: ShapeContent;
     private _app: AppInterface;
     shapeIndex: Array<number> = []; // addShapeIndex
     actionEvent: ActionEvent;
 
-    constructor(pointArr: Shape, app: AppInterface) {
+    constructor(pointArr: Shape,content: ShapeContent, app: AppInterface) {
         this._pointArr = pointArr;
+        this._content = content;
         this._app = app;
     }
 
     do(data: Graph): Graph {
         this.shapeIndex[0] = data.shapes.length;
         this.actionEvent = ActionEvent.Add;
-        let shape: PIXI.Graphics = this._app.graphManager.buildShapes(this._pointArr, data.shapes.length);
+        let shape: PIXI.Graphics = this._app.graphManager.buildShapes(this._pointArr, data.shapes.length, this._content);
         this._app.eventManager.bindHandler(SelectEnum.Shape, shape);
         data.shapes.push(this._pointArr);
+        this._app.stateManager.select(SelectEnum.Shape, this.shapeIndex);
         return data;
     };
     unDo(data: Graph): Graph {

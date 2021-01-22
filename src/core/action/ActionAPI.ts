@@ -23,10 +23,10 @@ export default interface ActionAPI {
      * @param  {number} y
      * @param  {number} width
      * @param  {number} height
-     * @param  {ShapeContent} content?
+     * @param  {ShapeContent} content
      * @returns void
      */
-    addShape(x: number, y: number, width: number, height: number, content?: ShapeContent): void;
+    addShape(x: number, y: number, width: number, height: number, content: ShapeContent): void;
 
     copyShape(shapeIndex: number): void;
 

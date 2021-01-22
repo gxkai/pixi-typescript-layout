@@ -25,6 +25,7 @@ export type Events = {
     mouseLeaveShape: CallbackFunc;
     mouseDownShape: CallbackFunc;
     mouseUpShape: CallbackFunc;
+    mouseMoveShape: CallbackFunc;
     mouseDownLine: CallbackFunc;
 }
 // 事件接口
@@ -63,6 +64,8 @@ export default interface EventAPI {
      * @returns void
      */
     onMouseUpShape(callback: CallbackFunc): void;
+
+    onMouseMoveShape(callback: CallbackFunc): void;
 
     /**
      * 图形的线 MouseDown： 编辑模式

@@ -1,8 +1,8 @@
 import { Shape, ShapeContent, Point, LineGraphics, PointGraphics, ShapeGraphics, LineStyle } from "../common/Graph";
-import { defultGraphStyle } from "./constant";
+import { defaultGraphStyle } from "./constant";
 import * as PIXI from 'pixi.js'
 
-export function drawShape(graphics: ShapeGraphics, shape: Shape, textScale: number, content: ShapeContent = defultGraphStyle): ShapeGraphics {
+export function drawShape(graphics: ShapeGraphics, shape: Shape, textScale: number, content: ShapeContent = defaultGraphStyle): ShapeGraphics {
     let hasMoveTo: boolean = false; //判断graph是否开始画：因为第一个点有可能被擦除 是null
     let moveToPoint: Point = [0, 0]; //记录第一个开始画的点 用于最后再画一次
     let xMin!: number,
@@ -13,7 +13,11 @@ export function drawShape(graphics: ShapeGraphics, shape: Shape, textScale: numb
     graphics.removeChildren();
     // set a fill and line style
     graphics.beginFill(content.backgroundColor, content.backgroundAlpha == undefined ? content.alpha : content.backgroundAlpha);
-
+    if (content.backgroundImage) {
+        graphics.beginTextureFill({
+            texture: new PIXI.Texture(PIXI.BaseTexture.from(content.backgroundImage)),
+        })
+    }
     if (content.border.lineStyle === LineStyle.Solid) {
         graphics.lineStyle(content.border.lineWidth, content.border.color, 1);
     }
@@ -29,25 +33,25 @@ export function drawShape(graphics: ShapeGraphics, shape: Shape, textScale: numb
             graphics.moveTo(shape[i]![0], shape[i]![1]);
             moveToPoint = shape[i];
             hasMoveTo = true;
-            xMin = moveToPoint![0];
-            xMax = moveToPoint![0];
-            yMin = moveToPoint![1];
-            yMax = moveToPoint![1];
+            xMin = moveToPoint[0];
+            xMax = moveToPoint[0];
+            yMin = moveToPoint[1];
+            yMax = moveToPoint[1];
         } else {
             graphics.lineTo(shape[i]![0], shape[i]![1]);
         }
         //查找shape的边界
-        xMin = xMin > shape[i]![0] ? shape[i]![0] : xMin;
-        xMax = xMax < shape[i]![0] ? shape[i]![0] : xMax;
-        yMin = yMin > shape[i]![1] ? shape[i]![1] : yMin;
-        yMax = yMax < shape[i]![1] ? shape[i]![1] : yMax;
+        xMin = xMin > shape[i][0] ? shape[i][0] : xMin;
+        xMax = xMax < shape[i][0] ? shape[i][0] : xMax;
+        yMin = yMin > shape[i][1] ? shape[i][1] : yMin;
+        yMax = yMax < shape[i][1] ? shape[i][1] : yMax;
     }
     graphics.xMin = xMin;
     graphics.xMax = xMax;
     graphics.yMin = yMin;
     graphics.yMax = yMax;
 
-    graphics.lineTo(moveToPoint![0], moveToPoint![1]);
+    graphics.lineTo(moveToPoint[0], moveToPoint[1]);
     graphics.endFill();
     //画虚线
     if (content.border.lineStyle === LineStyle.Dashed) {
@@ -192,10 +196,6 @@ export function buildLine(line: LineGraphics, start: Point, end: Point) {
     let dy = Math.cos(radians) * radius;
 
     let poly = new PIXI.Polygon(
-        // new PIXI.Point(start[0] + dx, start[1] - dy),
-        // new PIXI.Point(end[0] + dx, end[1] - dy),
-        // new PIXI.Point(end[0] - dx, end[1] + dy),
-        // new PIXI.Point(start[0] - dx, start[1] + dy),
         [start![0] + dx, start![1] - dy],
         [end![0] + dx, end![1] - dy],
         [end![0] - dx, end![1] + dy],
@@ -210,11 +210,11 @@ export function buildLine(line: LineGraphics, start: Point, end: Point) {
 
 //point
 export function buildPoint(graphics: PointGraphics, point: Point) {
-    const color = graphics.isHighlight ? 0x548f14 : 0xa7acb2;
+    const color = 0x000000;
     graphics.beginFill(color, 1)
-    graphics.drawCircle(0, 0, 3);
-    graphics.x = point![0];
-    graphics.y = point![1];
+    graphics.drawCircle(0, 0, 5);
+    graphics.x = point[0];
+    graphics.y = point[1];
     graphics.endFill();
     graphics.point = point;
 }

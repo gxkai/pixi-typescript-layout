@@ -12,7 +12,7 @@ export default class Eraser implements EraserInterface {
 
     private _deletePointArr: Array<number> = [];//保存要删除的点的index
     private _isErase: Boolean = false; //记录是否mousedown
-    private _callback: Function;
+    private readonly _callback: Function;
     private _state: PIXI.Container;
     private _graphContainer: PIXI.Container;
 
@@ -48,7 +48,7 @@ export default class Eraser implements EraserInterface {
         this._circleCursor.on("pointerdown", (event: PIXI.InteractionEvent) => {
             this._isErase = true;
             this._findDeletePoints(event.data.global.x, event.data.global.y);
-        }).on("mousemove", (event: PIXI.InteractionEvent) => {
+        }).on("pointermove", (event: PIXI.InteractionEvent) => {
             if (this._isErase) {
                 this._findDeletePoints(event.data.global.x, event.data.global.y);
             }

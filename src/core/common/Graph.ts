@@ -18,6 +18,7 @@ export enum LineStyle {
 export type ShapeContent = {
     backgroundAlpha?: number; // 背景透明度（默认shape使用）
     backgroundColor: number; // 背景颜色：0xffffff(十六进制)
+    backgroundImage?: string;
     border: {
         lineWidth: number,
         color: number,
@@ -69,7 +70,7 @@ export class PointGraphics extends PIXI.Graphics {
 }
 
 export enum EditEnum {
-    Nomal = 'Nomal',
+    Normal = 'Normal',
     Editing = 'Editing',
 }
 

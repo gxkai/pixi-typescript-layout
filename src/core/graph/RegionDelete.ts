@@ -37,7 +37,7 @@ export default class RegionDelete implements RegionDeleteInterface {
 
             this._app.graphManager.graphContainer.addChild(this._regionLayer);
             this._regionLayer.on("pointerdown", this._startDraw)
-                .on("mousemove", this._drawing)
+                .on("pointermove", this._drawing)
                 .on("pointerup", this._endDraw)
                 .on("pointerout", this._endDraw);
         } else {
@@ -60,7 +60,7 @@ export default class RegionDelete implements RegionDeleteInterface {
     // }
     private _unbindEvent() {
         this._regionLayer.off("pointerdown", this._startDraw)
-            .off("mousemove", this._drawing)
+            .off("pointermove", this._drawing)
             .off("pointerup", this._endDraw)
             .off("pointerout", this._endDraw);
     }

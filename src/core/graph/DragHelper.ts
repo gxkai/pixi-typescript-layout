@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 
-export interface DragableObj extends PIXI.DisplayObject {
+export interface DraggableObj extends PIXI.DisplayObject {
     dragData?: PIXI.InteractionData,
     dragging?: number,
     dragPointerStart?: PIXI.Point,
@@ -9,7 +9,7 @@ export interface DragableObj extends PIXI.DisplayObject {
 }
 
 function onDragStart(event: PIXI.InteractionEvent) {
-    let obj = <DragableObj>event.currentTarget;
+    let obj = <DraggableObj>event.currentTarget;
     obj.dragData = event.data;
     obj.dragging = 1;
     obj.dragPointerStart = event.data.getLocalPosition(obj.parent);
@@ -20,7 +20,7 @@ function onDragStart(event: PIXI.InteractionEvent) {
 }
 
 function onDragEnd(event: PIXI.InteractionEvent) {
-    let obj = <DragableObj>event.currentTarget;
+    let obj = <DraggableObj>event.currentTarget;
     if (obj.dragging == 1) {
         // toggle(obj);
     } else {
@@ -32,7 +32,7 @@ function onDragEnd(event: PIXI.InteractionEvent) {
 }
 
 function onDragMove(event: PIXI.InteractionEvent) {
-    let obj = <DragableObj>event.currentTarget;
+    let obj = <DraggableObj>event.currentTarget;
     if (!obj.dragging) return;
     let data = obj.dragData as PIXI.InteractionData; // it can be different pointer!
     if (obj.dragging == 1) {
@@ -53,7 +53,7 @@ function onDragMove(event: PIXI.InteractionEvent) {
     }
 }
 
-export default function DragHelper(container: DragableObj, enable: boolean = true) {
+export default function DragHelper(container: DraggableObj, enable: boolean = true) {
     if (enable) {
         container.interactive = true;
         container.on('pointerdown', onDragStart)

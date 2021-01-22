@@ -72,7 +72,7 @@ export interface GraphManagerInterface {
      * @param  {number} shapeIndex
      * @param  {ShapeContent} content?
      */
-    buildShapes(shape: Shape, shapeIndex: number, content?: ShapeContent): ShapeGraphics;
+    buildShapes(shape: Shape,  shapeIndex: number, content?: ShapeContent): ShapeGraphics;
 
     /**
      * 删除shape

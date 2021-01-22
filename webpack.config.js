@@ -6,6 +6,7 @@ const isProd = process.env.NODE_ENV === "production";
 module.exports = {
   entry: "./src/index.ts",
   mode: isProd ? "production" : "development",
+  devtool: 'inline-source-map',
   resolve: {
     extensions: [".ts", ".js", ".json"]
   },

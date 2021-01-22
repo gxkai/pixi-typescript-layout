@@ -19,7 +19,7 @@ export default class StateManager implements StateManagerInterface {
 
     constructor(app: AppInterface) {
         this._app = app;
-        this._editEnum = EditEnum.Nomal;
+        this._editEnum = EditEnum.Normal;
         this._selectEnum = SelectEnum.None;
         this._isEnableEraser = false;
         this._selectIndex = [];
@@ -40,7 +40,7 @@ export default class StateManager implements StateManagerInterface {
     }
 
     enableEdit(isEnabled: boolean) {
-        this._editEnum = isEnabled ? EditEnum.Editing : EditEnum.Nomal;
+        this._editEnum = isEnabled ? EditEnum.Editing : EditEnum.Normal;
         this._selectEnum = SelectEnum.None;
         this._isEnableEraser = false;
         this._selectIndex = [];
@@ -74,7 +74,7 @@ export default class StateManager implements StateManagerInterface {
     }
 
     enableRegionDelete(isEnabled: boolean, callBack?: RegionDeleteCallBack) {
-        if (this._editEnum === EditEnum.Nomal) {
+        if (this._editEnum === EditEnum.Normal) {
             // 排除了，非编辑状态
             return;
         }

@@ -1,8 +1,8 @@
 import {
     SelectSuperState,
-    NomalSelectState,
+    NormalSelectState,
     EditingSelectState,
-    NomalNoneState,
+    NormalNoneState,
     EditingNoneState,
     EditingEraserState,
 } from './State';
@@ -22,12 +22,12 @@ export default function StateFactory(
         case ((eEnum === ee.Editing) && (sEnum === se.Line)):
         case ((eEnum === ee.Editing) && (sEnum === se.Point)):
             return new EditingSelectState(index, sEnum);
-        case ((eEnum === ee.Nomal) && enableEraser):
-            return new NomalNoneState(index, sEnum);
-        case ((eEnum === ee.Nomal) && (sEnum === se.Shape)):
-            return new NomalSelectState(index, sEnum);
-        case ((eEnum === ee.Nomal) && (sEnum === se.None)):
+        case ((eEnum === ee.Normal) && enableEraser):
+            return new NormalNoneState(index, sEnum);
+        case ((eEnum === ee.Normal) && (sEnum === se.Shape)):
+            return new NormalSelectState(index, sEnum);
+        case ((eEnum === ee.Normal) && (sEnum === se.None)):
         default:
-            return new NomalNoneState(index, sEnum);
+            return new NormalNoneState(index, sEnum);
     }
 }

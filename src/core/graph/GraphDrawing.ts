@@ -1,5 +1,5 @@
 import { ShapeContent, Shape, ShapeGraphics, GraphCache, SelectEnum } from "../common/Graph";
-import { defultGraphStyle } from "./constant";
+import { defaultGraphStyle } from "./constant";
 import AppInterface from "../app/AppInterface";
 import { drawShape } from "./DrawingHelper";
 import { ShadowShapeInterface } from "./GraphInterface";
@@ -39,7 +39,7 @@ export default class GraphDrawing {
 
     }
 
-    buildShapes(shape: Shape, index: number, content: ShapeContent = defultGraphStyle): ShapeGraphics {
+    buildShapes(shape: Shape, index: number, content: ShapeContent): ShapeGraphics {
         if (!shape) {
             return new ShapeGraphics();
         }
@@ -81,7 +81,7 @@ export default class GraphDrawing {
     }
 
     //shadowShape
-    buildShadowShapes(shape: Shape, content: ShapeContent = defultGraphStyle): PIXI.Graphics {
+    buildShadowShapes(shape: Shape, content: ShapeContent = defaultGraphStyle): PIXI.Graphics {
         let graphics!: ShapeGraphics;
         // 放大缩小对shadowShape没有影响 所以textScale传1
         graphics = drawShape(graphics, shape, 1, content);

@@ -17,7 +17,7 @@ import Eraser from "./Eraser"
 import GraphDrawing from './GraphDrawing'
 import ShadowShape from "./ShadowShape"
 import EditTool from "./EditTool";
-import { defultGraphStyle } from "./constant";
+import { defaultGraphStyle } from "./constant";
 import RegionDelete from "./RegionDelete";
 import * as PIXI from 'pixi.js'
 
@@ -118,7 +118,7 @@ export default class GraphManager extends GraphDrawing implements GraphManagerIn
     private _changeShapeColor(shape: Shape, shapeIndex: number, isWhite: boolean, isVisible: boolean = true) {
         if (shape.length !== 0) {
             let content: ShapeContent = this._graphCache.shapesContent![shapeIndex];
-            let defaultStyle: ShapeContent = defultGraphStyle;
+            let defaultStyle: ShapeContent = defaultGraphStyle;
             let con: ShapeContent = content ? content : defaultStyle;
             let deepCopyCon: ShapeContent = JSON.parse(JSON.stringify(con));
             if (isWhite) {
@@ -136,11 +136,11 @@ export default class GraphManager extends GraphDrawing implements GraphManagerIn
     setGraph(graph: Graph, cache: GraphCache, callBack?: setGraphCallback): void {
         this._graphCache = cache;
         this._shapeLayer.removeChildren();
-        this._buildBackground(cache.background);
+        // this._buildBackground(cache.background);
         for (let i = 0; i < graph.shapes.length; i++) {
             this.buildShapes(graph.shapes[i], i, cache.shapesContent![i]);
         }
-        this._loaderBgImg(cache.background, callBack); // 背景图片加载好后执行回调
+        // this._loaderBgImg(cache.background, callBack); // 背景图片加载好后执行回调
     }
 
     setShapeContent(index: number, content?: ShapeContent): void {

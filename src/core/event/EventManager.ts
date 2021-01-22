@@ -9,7 +9,7 @@ import Graphics = PIXI.Graphics;
 class EventAPIManager implements EventAPI {
     protected _events: Events;
     protected _app: AppInterface;
-    protected _editState: EditEnum = EditEnum.Nomal;//state change
+    protected _editState: EditEnum = EditEnum.Normal;//state change
 
     onClickGraph(callback: CallbackFunc): void {
         this._events.clickGraph = callback;
@@ -34,6 +34,11 @@ class EventAPIManager implements EventAPI {
     onMouseUpShape(callback: CallbackFunc): void {
         this._events.mouseUpShape = callback;
         this._initBindShape(callback, "pointerup");
+    };
+
+    onMouseMoveShape(callback: CallbackFunc): void {
+        this._events.mouseUpShape = callback;
+        this._initBindShape(callback, "pointermove");
     };
 
     onMouseDownLine(callback: CallbackFunc): void {
@@ -103,6 +108,7 @@ class EventAPIManager implements EventAPI {
     protected _bindShapeEvents(item: ShapeGraphics, ) {
         item.on('mouseover', this._bindShapeFunc(this._events.mouseEnterShape, item))
             .on('mouseout', this._bindShapeFunc(this._events.mouseLeaveShape, item))
+            .on('mousemove', this._bindShapeFunc(this._events.mouseMoveShape, item))
             .on('pointerdown', this._bindShapeFunc(this._events.mouseDownShape, item))
             .on('pointerup', this._bindShapeFunc(this._events.mouseUpShape, item));
     }
@@ -121,6 +127,7 @@ export default class EventManager extends EventAPIManager implements EventManage
             mouseDownShape: () => { },
             mouseUpShape: () => { },
             mouseDownLine: () => { },
+            mouseMoveShape: () => {}
         }
     }
 

@@ -1,9 +1,9 @@
 import { EditToolInterface, SelectHandler, UpdateHandler } from "./GraphInterface";
 import { Shape, ShapeContent, PointGraphics, LineGraphics, ShapeGraphics, Point, SelectEnum } from "../common/Graph";
 import { buildPoint, buildLine, drawShape } from "./DrawingHelper";
-import DragHelper, { DragableObj } from "./DragHelper";
+import DragHelper, { DraggableObj } from "./DragHelper";
 import AppInterface from "../app/AppInterface";
-import { defultGraphStyle } from "./constant";
+import { defaultGraphStyle } from "./constant";
 import * as PIXI from 'pixi.js'
 
 type Highlight = boolean | {
@@ -57,7 +57,7 @@ export default class EditTool implements EditToolInterface {
     init(shape: Shape, content: ShapeContent, isDisplay?: boolean): void {
         this.destroy();
         this._shape = shape;
-        this._content = content ? content : JSON.parse(JSON.stringify(defultGraphStyle));
+        this._content = content ? content : JSON.parse(JSON.stringify(defaultGraphStyle));
         this._content.backgroundAlpha = 1;
         if (isDisplay) {
             this._drawBackShape(true);
@@ -134,7 +134,6 @@ export default class EditTool implements EditToolInterface {
 
     private _drawEditLayer(isInit: boolean, isHighlight: Highlight) {
         this._drawBackShape(isInit);
-        // 删除null 测试出现的bug：原因估计是项目代码更新时造成的，理应不出现null
         this._shape = this._shape.filter(function (n) { return n !== null });
         for (let i = 0; i < this._shape.length; i++) {
             this._drawPoint(i, isInit, isHighlight);
@@ -228,6 +227,7 @@ export default class EditTool implements EditToolInterface {
                         this._updateHandler(newShape);
                     }
                 });
+                break;
             default:
                 break;
         }
@@ -290,15 +290,15 @@ function addLineDragHandler(
     nextPoint: PointGraphics, nextLine: LineGraphics,
     handler: { (point: Point, nextPoint: Point): void }
 ) {
-    let pPoint = <DragableObj>prePoint;
+    let pPoint = <DraggableObj>prePoint;
     pPoint.dragObjStart = new PIXI.Point();
     pPoint.dragObjStart.copyFrom(pPoint.position);
-    let nPoint = <DragableObj>nextPoint;
+    let nPoint = <DraggableObj>nextPoint;
     nPoint.dragObjStart = new PIXI.Point();
     nPoint.dragObjStart.copyFrom(nPoint.position);
 
     const onDragMove = function () {
-        const dLine = <DragableObj>line;
+        const dLine = <DraggableObj>line;
         const dx = dLine.x - dLine.dragObjStart!.x;
         const dy = dLine.y - dLine.dragObjStart!.y;
         prePoint.x = dx + pPoint.dragObjStart!.x;

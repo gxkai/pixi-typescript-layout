@@ -32,7 +32,7 @@ export abstract class SelectSuperState implements StateInterface {
 }
 
 // 展示、选中
-export class NomalSelectState extends SelectSuperState {
+export class NormalSelectState extends SelectSuperState {
     protected processLayer(graphManager: GraphManagerInterface, eventManager: EventManagerInterface): void {
         graphManager.addDisplayLayer(this.isChangingSelect, this._index);
     }
@@ -72,7 +72,7 @@ export class EditingRegionDeleteState extends SelectSuperState {
 }
 
 // 展示
-export class NomalNoneState extends SelectSuperState {
+export class NormalNoneState extends SelectSuperState {
     processGraph(graphManager: GraphManagerInterface, eventManager: EventManagerInterface): void {
         graphManager.removeLayer();
         graphManager.enableRegionDelete(false);

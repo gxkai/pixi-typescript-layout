@@ -1,7 +1,7 @@
 $(function () {
     var app = new CreamsPIXI(document.getElementById('container'));
     app.setGraph({
-        shapes: data
+        shapes: []// data
     }, {
         background: {
             url: 'test/Model.jpg'
@@ -11,6 +11,7 @@ $(function () {
     var state = {
         hasShadowShape: false
     }
+    app.operationManager.enableEdit(true);
 
     //放大缩小居中
     let dom = $("#operation");
@@ -34,9 +35,9 @@ $(function () {
     $(eraser.find("span")[2]).click(function () {
         app.operationManager.enableEraser(false);
     })
-    app.eventManager.onClickGraph((index, event, editType) => {
-        //  console.log(index + ";x:" + event.x + "y:" + event.y + "editType" + editType)
-    })
+    // app.eventManager.onClickGraph((index, event, editType) => {
+    //     //  console.log(index + ";x:" + event.x + "y:" + event.y + "editType" + editType)
+    // })
 
     $("#openRegionDelete").click(() => {
         app.operationManager.enableRegionDelete(true);
@@ -44,26 +45,27 @@ $(function () {
     $("#closeRegionDelete").click(() => {
         app.operationManager.enableRegionDelete(false);
     })
+    var defaultGraphStyle = {
+        backgroundColor: 0xD1D8DF,
+        border: {
+            lineWidth: 2,
+            color: 0xA7ACB2,
+            lineStyle: "dotted"
+        },
+        font: {
+            fontSize: 14,
+            fill: [0x000000]
+        },
+        content: "",
+        hasMark: false,
+        alpha: 1,
+        //shapeIndex: ""
+    }
     //添加graph
     $("#addGraph").click(() => {
-        var defultGraphStyle = {
-            backgroundColor: 0xD1D8DF,
-            border: {
-                lineWidth: 2,
-                color: 0xA7ACB2,
-                lineStyle: "dotted"
-            },
-            font: {
-                fontSize: 14,
-                fill: [0x000000]
-            },
-            content: "",
-            hasMark: false,
-            alpha: 1,
-            //shapeIndex: ""
-        }
-        app.actionManager.addShape(100, 100, 100, 100, defultGraphStyle)
+        app.actionManager.addShape(100, 100, 100, 100, defaultGraphStyle)
     })
+    app.actionManager.addShape(100, 100, 100, 100, defaultGraphStyle)
     //graph工具栏
     // $("#creams-pixi").mousemove(() => {
 
@@ -150,7 +152,16 @@ $(function () {
             state.hasShadowShape = false;
             app.operationManager.setShapeContent(index[0], shadowDownCon);
         }
-        // console.log("up" + " " + index[0])
+        console.log("up" + " " + index[0])
+        bindTool(index)
+
+    })
+    app.eventManager.onMouseMoveShape((index, event, editType) => {
+        if (state.hasShadowShape) {
+            state.hasShadowShape = false;
+            app.operationManager.setShapeContent(index[0], shadowDownCon);
+        }
+        // console.log("move" + " " + index[0])
         bindTool(index)
 
     })
@@ -165,22 +176,22 @@ $(function () {
     //     }
     // }) //
     app.eventManager.onMouseLeaveShape((index, event, editType) => {
-        // console.log("leave" + " " + index)
+        console.log("leave" + " " + index)
         if (state.hasShadowShape) {
             app.operationManager.setShapeContent(index[0]);
         }
     })
     app.eventManager.onMouseDownShape((index, event, editType) => {
-        // console.log("down" + " " + index)
+        console.log("down" + " " + index)
     })
     app.eventManager.onMouseEnterShape((index, event, editType) => {
-        // console.log("enter" + " " + index)
+        console.log("enter" + " " + index)
         if (state.hasShadowShape) {
             app.operationManager.setShapeContent(index[0], shadowDownCon);
         }
     })
     app.eventManager.onMouseDownLine((index, event, editType) => {
-        // console.log("line down" + " " + index)
+        console.log("line down" + " " + index)
         app.operationManager.addPoint(index[0]);
 
     })
