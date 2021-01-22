@@ -10,6 +10,7 @@
     "build": "NODE_ENV=production webpack"
   },
   "dependencies": {
+    "pixi-fps": "^2.0.1",
     "pixi.js": "^5.3.7"
   },
   "devDependencies": {

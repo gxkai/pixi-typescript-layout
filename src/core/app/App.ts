@@ -14,6 +14,7 @@ import EventManager from '../event/EventManager';
 import ActionManager from '../action/ActionManager';
 import StateManager from "../state/StateManager";
 import { Graph, GraphCache } from "../common/Graph";
+import PixiFps from "pixi-fps";
 
 interface ActionCombine extends ActionAPI, ActionManagerInterface { }
 interface EventCombine extends EventAPI, EventManagerInterface { }
@@ -45,6 +46,8 @@ export default class App implements AppInterface, AppAPI {
             backgroundColor: 0xffffff,
             antialias: true
         });
+        const fpsCounter = new PixiFps();
+        // app.stage.addChild(fpsCounter)
         window.addEventListener("resize", function () {
             app.renderer.resize(el.offsetWidth, el.offsetHeight);
         });

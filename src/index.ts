@@ -36,7 +36,7 @@ function main() {
         hasMark: false,
         alpha: 1,
     };
-    app.actionManager.addShape(100, 100, 100, 100, defaultGraphStyle)
+    app.actionManager.addShape(100, 100, 200, 200, defaultGraphStyle)
 
 }
 main()

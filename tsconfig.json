@@ -12,6 +12,7 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "outDir": "./dist/",
     "noImplicitThis": true,
     "strictPropertyInitialization": false
   }

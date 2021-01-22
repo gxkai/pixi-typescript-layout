@@ -150,6 +150,9 @@ export default class EventManager extends EventAPIManager implements EventManage
                 console.log('----> line')
                 target.on("pointerdown", this._bindLineFunc(this._events.mouseDownLine, target as LineGraphics));
                 break;
+            case SelectEnum.Point:
+                console.log('----> point')
+                break;
             default:
                 console.error("无法绑定该对象")
         }

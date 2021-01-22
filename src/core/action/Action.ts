@@ -108,7 +108,7 @@ export class CopyShapeAction implements ActionInterface {
 
 //编辑时（点的增删改） 更新shape
 export class UpdateShapeAction implements ActionInterface {
-    private _newShape: Shape;
+    private readonly _newShape: Shape;
     private _app: AppInterface;
     private _oldShape: Shape;
     shapeIndex: Array<number> = []; // updateIndex

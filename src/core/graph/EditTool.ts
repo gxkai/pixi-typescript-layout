@@ -2,7 +2,6 @@ import { EditToolInterface, SelectHandler, UpdateHandler } from "./GraphInterfac
 import { Shape, ShapeContent, PointGraphics, LineGraphics, ShapeGraphics, Point, SelectEnum } from "../common/Graph";
 import { buildPoint, buildLine, drawShape } from "./DrawingHelper";
 import DragHelper, { DraggableObj } from "./DragHelper";
-import AppInterface from "../app/AppInterface";
 import { defaultGraphStyle } from "./constant";
 import * as PIXI from 'pixi.js'
 
@@ -175,6 +174,7 @@ export default class EditTool implements EditToolInterface {
         let nextPoint: PointGraphics;
         let nextLine: LineGraphics;
         this._layer.interactive = false;
+        console.log(`-----> select ${select.toLowerCase()}`)
         switch (select) {
             case SelectEnum.Point:
                 this._drawEditLayer(false, { select, index });
@@ -182,6 +182,8 @@ export default class EditTool implements EditToolInterface {
                 // 只关心在layer里面的队形，不关心name里的index
                 targetIndex = this._pointLayer.getChildIndex(targetPoint);
                 preIndex = targetIndex === 0 ? (this._pointLayer.children.length - 1) : (targetIndex - 1);
+                console.log(`point preIndex -----> ${preIndex}`)
+                console.log(`point targetIndex -----> ${targetIndex}`)
                 preLine = <LineGraphics>this._lineLayer.getChildAt(preIndex);
                 nextLine = <LineGraphics>this._lineLayer.getChildAt(targetIndex);
                 addPointDragHandler(preLine, targetPoint, nextLine, (point: Point) => {
@@ -269,6 +271,10 @@ function addPointDragHandler(
         const nextLineEnd = nextLine.endPoint;
         nextLine.clear();
         buildLine(nextLine, [point.x, point.y], nextLineEnd);
+        handler([
+            Math.round(point.x),
+            Math.round(point.y)
+        ]);
     }
     const onDragEnd = function () {
         handler([
