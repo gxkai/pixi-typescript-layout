@@ -43,8 +43,8 @@ export default class App implements AppInterface, AppAPI {
             console.log(event)
             if (this.stateManager.isEnableFreeDrawing()) {
                 console.log('-----> pointerdown stage')
-                // const {x, y} = event.data.global;
-                // this.actionManager.addShape(x, y, 10, 10, defaultGraphStyle)
+                const {x, y} = event.data.global;
+                this.actionManager.addShape(x, y, 0, 0, defaultGraphStyle)
             }
         })
     }

@@ -175,7 +175,8 @@ export default class GraphManager extends GraphDrawing implements GraphManagerIn
         });
         this._editTool.addSelectHandler((target: ShapeGraphics, state: SelectEnum, idx: number) => {
             target.shapeIndex = shapeIndex;
-            target.on('pointerdown', () => {
+            target.on('pointerdown', (event: PIXI.InteractionEvent) => {
+                event.stopPropagation();
                 this._app.stateManager.select(state, [shapeIndex, idx]);
             });
             if (state === SelectEnum.Shape || state === SelectEnum.Line) {
