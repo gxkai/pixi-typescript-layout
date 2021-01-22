@@ -51,6 +51,13 @@ export default interface OperationAPI {
     enableEdit(isEnabled: boolean): void;
 
     /**
+     * 是否开启自由画
+     * @param {boolean}isEnabled
+     * @returns void
+     */
+    enableFreeDrawing(isEnabled: boolean): void;
+
+    /**
      * 给图块设置显示参数
      * @param  {number} index, 图块序号
      * @param  {ShapeContent} content?, 显示参数

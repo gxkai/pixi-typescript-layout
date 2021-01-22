@@ -136,22 +136,21 @@ export default class EventManager extends EventAPIManager implements EventManage
     }
 
     bindAllHandler(): void {
-        //this._bindClickGraph(); // new app的时候graphContainer已经生成
         this._bindShapes();
     }
 
     bindHandler(selectType: SelectEnum, target: Graphics): void {
         switch (selectType) {
             case SelectEnum.Shape:
-                console.log('----> shape')
+                console.log('----> bind shape')
                 this._bindShapeEvents(target as ShapeGraphics);
                 break;
             case SelectEnum.Line:
-                console.log('----> line')
+                console.log('----> bind line')
                 target.on("pointerdown", this._bindLineFunc(this._events.mouseDownLine, target as LineGraphics));
                 break;
             case SelectEnum.Point:
-                console.log('----> point')
+                console.log('----> bind point')
                 break;
             default:
                 console.error("无法绑定该对象")

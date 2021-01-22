@@ -9,6 +9,7 @@ import { RegionDeleteCallBack } from '../graph/GraphInterface';
 export default class StateManager implements StateManagerInterface {
     private _app: AppInterface;
     private _editEnum: EditEnum;
+    private _isEnableFreeDrawing: boolean;
 
     private _selectEnum: SelectEnum;
     private _isEnableEraser: boolean;
@@ -20,12 +21,16 @@ export default class StateManager implements StateManagerInterface {
     constructor(app: AppInterface) {
         this._app = app;
         this._editEnum = EditEnum.Normal;
+        this._isEnableFreeDrawing = false;
         this._selectEnum = SelectEnum.None;
         this._isEnableEraser = false;
         this._selectIndex = [];
         this._currentState = StateFactory(
             this._editEnum, this._selectEnum, this._isEnableEraser, this._selectIndex
         );
+    }
+    isEnableFreeDrawing(): boolean {
+        return  this._isEnableFreeDrawing;
     }
 
     private _activeState(isChange: boolean = true) {
@@ -47,6 +52,9 @@ export default class StateManager implements StateManagerInterface {
         this._isEnableRegionDelete = false;
         this._activeState();
         this._app.eventManager.setEditState(this._editEnum);
+    }
+    enableFreeDrawing(isEnabled: boolean) {
+        this._isEnableFreeDrawing = isEnabled;
     }
 
     enableEraser(isEnabled: boolean) {

@@ -97,6 +97,10 @@ export default class OperationManager implements OperationAPI {
         this._app.stateManager.enableEraser(isEnabled);
     }
 
+    enableFreeDrawing(isEnabled: boolean): void {
+        this._app.stateManager.enableFreeDrawing(isEnabled);
+    }
+
     enableEdit(isEnabled: boolean): void {
         this._app.stateManager.enableEdit(isEnabled);
     }

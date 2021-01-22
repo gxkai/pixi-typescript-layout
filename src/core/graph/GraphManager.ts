@@ -20,6 +20,7 @@ import EditTool from "./EditTool";
 import { defaultGraphStyle } from "./constant";
 import RegionDelete from "./RegionDelete";
 import * as PIXI from 'pixi.js'
+import { cloneDeep } from "lodash";
 
 export default class GraphManager extends GraphDrawing implements GraphManagerInterface {
     private readonly _extraLayer: PIXI.Container;
@@ -30,7 +31,6 @@ export default class GraphManager extends GraphDrawing implements GraphManagerIn
 
     constructor(app: AppInterface) {
         super(app);
-
         this._backgroundLayer = new PIXI.Container();
         this._backgroundLayer.name = "backgroundLayer";
         this._extraLayer = new PIXI.Container();
@@ -120,7 +120,7 @@ export default class GraphManager extends GraphDrawing implements GraphManagerIn
             let content: ShapeContent = this._graphCache.shapesContent![shapeIndex];
             let defaultStyle: ShapeContent = defaultGraphStyle;
             let con: ShapeContent = content ? content : defaultStyle;
-            let deepCopyCon: ShapeContent = JSON.parse(JSON.stringify(con));
+            let deepCopyCon: ShapeContent = cloneDeep(con);
             if (isWhite) {
                 deepCopyCon.backgroundAlpha = 1;
                 deepCopyCon.backgroundColor = 0xffffff;

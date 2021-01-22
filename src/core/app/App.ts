@@ -4,17 +4,18 @@ import AppAPI from "./AppAPI";
 import ActionAPI from "../action/ActionAPI";
 import OperationAPI from "../operation/OperationAPI";
 import EventAPI from "../event/EventAPI";
-import { StateManagerInterface } from '../state/StateInterface';
-import { ActionManagerInterface } from "../action/ActionInterface";
-import { GraphManagerInterface, setGraphCallback } from "../graph/GraphInterface";
-import { EventManagerInterface } from "../event/EventInterface";
+import {StateManagerInterface} from '../state/StateInterface';
+import {ActionManagerInterface} from "../action/ActionInterface";
+import {GraphManagerInterface, setGraphCallback} from "../graph/GraphInterface";
+import {EventManagerInterface} from "../event/EventInterface";
 import GraphManager from '../graph/GraphManager';
 import OperationManager from '../operation/OperationManager';
 import EventManager from '../event/EventManager';
 import ActionManager from '../action/ActionManager';
 import StateManager from "../state/StateManager";
-import { Graph, GraphCache } from "../common/Graph";
+import {Graph, GraphCache, SelectEnum} from "../common/Graph";
 import PixiFps from "pixi-fps";
+import {defaultGraphStyle} from "../graph/constant";
 
 interface ActionCombine extends ActionAPI, ActionManagerInterface { }
 interface EventCombine extends EventAPI, EventManagerInterface { }
@@ -37,6 +38,15 @@ export default class App implements AppInterface, AppAPI {
         this.eventManager = new EventManager(this);
         this.actionManager = new ActionManager(this);
         this.stateManager = new StateManager(this);
+        this.pixiApp.stage.interactive = true;
+        this.pixiApp.stage.on('pointerdown', (event: PIXI.InteractionEvent) => {
+            console.log(event)
+            if (this.stateManager.isEnableFreeDrawing()) {
+                console.log('-----> pointerdown stage')
+                // const {x, y} = event.data.global;
+                // this.actionManager.addShape(x, y, 10, 10, defaultGraphStyle)
+            }
+        })
     }
 
     private init(el: HTMLElement) {
@@ -46,7 +56,7 @@ export default class App implements AppInterface, AppAPI {
             backgroundColor: 0xffffff,
             antialias: true
         });
-        const fpsCounter = new PixiFps();
+        // const fpsCounter = new PixiFps();
         // app.stage.addChild(fpsCounter)
         window.addEventListener("resize", function () {
             app.renderer.resize(el.offsetWidth, el.offsetHeight);

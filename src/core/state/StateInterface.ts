@@ -3,6 +3,8 @@ import { EventManagerInterface } from "../event/EventInterface";
 import { SelectEnum } from "../common/Graph";
 
 export interface StateManagerInterface {
+    isEnableFreeDrawing(): boolean;
+    enableFreeDrawing(isEnabled: boolean): void;
     enableEdit(isEnabled: boolean): void;
     enableEraser(isEnabled: boolean): void;
     select(state: SelectEnum, index: Array<number>): void;

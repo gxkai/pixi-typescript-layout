@@ -3,6 +3,7 @@ import { ActionInterface, ActionManagerInterface } from "./ActionInterface";
 import { Graph, ShapeContent, Shape, ShapeGraphics, SelectEnum } from "../common/Graph";
 import { CreateShapeAction, DeleteShapeAction, CopyShapeAction, UpdateShapeAction } from "./Action"
 import AppInterface from "../app/AppInterface";
+import { cloneDeep } from "lodash";
 
 class Manager {
     protected _currentData: Graph; //因为还是需要删除shape的时候 清空con
@@ -90,7 +91,7 @@ export default class ActionManager extends Manager implements ActionAPI, ActionM
             order.push(item.shapeIndex as number);
         })
         let newGraph: GraphOrder = {
-            shapes: JSON.parse(JSON.stringify(this._currentData.shapes)),
+            shapes: cloneDeep(this._currentData.shapes),
             order: order
         }
         return newGraph;
@@ -125,7 +126,7 @@ export default class ActionManager extends Manager implements ActionAPI, ActionM
     };
 
     getCurrentShape(shapeIndex: number): Shape {
-        return JSON.parse(JSON.stringify(this._currentData.shapes[shapeIndex]));
+        return cloneDeep(this._currentData.shapes[shapeIndex]);
     }
 
 }

@@ -1,5 +1,6 @@
 import App from './core/app/App';
 import {LineStyle, ShapeContent} from "./core/common/Graph";
+import {defaultGraphStyle} from "./core/graph/constant";
 
 export default App;
 
@@ -20,23 +21,7 @@ function main() {
         shapesContent: []
     })
     app.operationManager.enableEdit(true);
-    const defaultGraphStyle: ShapeContent = {
-        backgroundColor: 0xD1D8DF,
-        backgroundImage: 'test/Floor.jpeg',
-        border: {
-            lineWidth: 2,
-            color: 0xA7ACB2,
-            lineStyle: LineStyle.Dashed
-        },
-        font: {
-            fontSize: 14,
-            fill: [0x000000]
-        },
-        content: "",
-        hasMark: false,
-        alpha: 1,
-    };
+    app.operationManager.enableFreeDrawing(true);
     app.actionManager.addShape(100, 100, 200, 200, defaultGraphStyle)
-
 }
 main()

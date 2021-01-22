@@ -36,7 +36,7 @@ export default class GraphDrawing {
         this.graphContainer.addChild(this._shapeLayer);
         app.pixiApp.stage.addChild(this.graphContainer);
         this._shadowShape = new ShadowShape(app);
-
+        this.graphContainer.interactive = true;
     }
 
     buildShapes(shape: Shape, index: number, content: ShapeContent): ShapeGraphics {

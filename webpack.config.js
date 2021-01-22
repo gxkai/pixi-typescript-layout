@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const isProd = process.env.NODE_ENV === "production";
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.ts",
@@ -29,6 +30,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist")
   },
   plugins: [
+    new LodashModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src/index.html")
     }),

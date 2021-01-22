@@ -4,6 +4,7 @@ import { buildPoint, buildLine, drawShape } from "./DrawingHelper";
 import DragHelper, { DraggableObj } from "./DragHelper";
 import { defaultGraphStyle } from "./constant";
 import * as PIXI from 'pixi.js'
+import { cloneDeep } from "lodash";
 
 type Highlight = boolean | {
     select: SelectEnum,
@@ -56,7 +57,7 @@ export default class EditTool implements EditToolInterface {
     init(shape: Shape, content: ShapeContent, isDisplay?: boolean): void {
         this.destroy();
         this._shape = shape;
-        this._content = content ? content : JSON.parse(JSON.stringify(defaultGraphStyle));
+        this._content = content ? content : cloneDeep(defaultGraphStyle);
         this._content.backgroundAlpha = 1;
         if (isDisplay) {
             this._drawBackShape(true);
@@ -125,7 +126,7 @@ export default class EditTool implements EditToolInterface {
         } else {
             backShape.clear();
         }
-        let con = JSON.parse(JSON.stringify(this._content))
+        let con = cloneDeep(this._content)
         con.backgroundAlpha = 0.8;
         let parent: PIXI.Container = this._container.parent;
         drawShape(backShape, this._shape, parent.scale.x, con);
