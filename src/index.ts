@@ -1,6 +1,5 @@
 import App from './core/app/App';
-import {LineStyle, ShapeContent} from "./core/common/Graph";
-import {defaultGraphStyle} from "./core/graph/constant";
+import {defaultGraphStyle, mockData} from "./core/graph/constant";
 
 export default App;
 
@@ -13,7 +12,7 @@ function main() {
     const container = document.body;
     const app = new App(container);
     app.setGraph({
-        shapes: []// data
+        shapes: []// mockData
     }, {
         background: {
             url: 'test/Model.jpg'

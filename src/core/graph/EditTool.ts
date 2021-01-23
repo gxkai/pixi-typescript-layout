@@ -1,10 +1,10 @@
-import { EditToolInterface, SelectHandler, UpdateHandler } from "./GraphInterface";
-import { Shape, ShapeContent, PointGraphics, LineGraphics, ShapeGraphics, Point, SelectEnum } from "../common/Graph";
-import { buildPoint, buildLine, drawShape } from "./DrawingHelper";
-import DragHelper, { DraggableObj } from "./DragHelper";
-import { defaultGraphStyle } from "./constant";
+import {EditToolInterface, SelectHandler, UpdateHandler} from "./GraphInterface";
+import {LineGraphics, Point, PointGraphics, SelectEnum, Shape, ShapeContent, ShapeGraphics} from "../common/Graph";
+import {buildLine, buildPoint, drawShape} from "./DrawingHelper";
+import DragHelper, {DraggableObj} from "./DragHelper";
+import {defaultGraphStyle} from "./constant";
 import * as PIXI from 'pixi.js'
-import { cloneDeep } from "lodash";
+import {cloneDeep} from "lodash";
 
 type Highlight = boolean | {
     select: SelectEnum,

@@ -15,6 +15,7 @@ export type CallbackFunc = {
     /**
      * @param  {Array<number>} index, target对象的index数组
      * @param  {MouseEvent} event, PIXI的点击事件
+     * @param editType
      * @returns void
      */
     (index: Array<number>, event: MouseEvent, editType?: EditEnum): void;

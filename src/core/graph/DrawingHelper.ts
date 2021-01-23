@@ -218,6 +218,7 @@ export function buildLine(line: LineGraphics, start: Point, end: Point) {
     line.moveTo(start[0],start[1])
     line.lineTo(end[0], end[1]);
     line.endFill();
+    line.hitArea = line.getBounds();
     line.startPoint = start;
     line.endPoint = end;
 }

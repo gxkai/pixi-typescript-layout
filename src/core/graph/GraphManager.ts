@@ -138,7 +138,7 @@ export default class GraphManager extends GraphDrawing implements GraphManagerIn
         this._shapeLayer.removeChildren();
         // this._buildBackground(cache.background);
         for (let i = 0; i < graph.shapes.length; i++) {
-            this.buildShapes(graph.shapes[i], i, cache.shapesContent![i]);
+            this.buildShapes(graph.shapes[i], i, cache.shapesContent[i]);
         }
         // this._loaderBgImg(cache.background, callBack); // 背景图片加载好后执行回调
     }
@@ -174,8 +174,10 @@ export default class GraphManager extends GraphDrawing implements GraphManagerIn
             this._app.actionManager.updateShape(shape, shapeIndex);
         });
         this._editTool.addSelectHandler((target: ShapeGraphics, state: SelectEnum, idx: number) => {
+            console.log(`-----> addSelectHandler ${state} ${idx}`)
             target.shapeIndex = shapeIndex;
             target.on('pointerdown', (event: PIXI.InteractionEvent) => {
+                console.log(`-----> pointerdown selectHandle ${state.toLowerCase()}`)
                 event.stopPropagation();
                 this._app.stateManager.select(state, [shapeIndex, idx]);
             });
