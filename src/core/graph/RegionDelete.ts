@@ -10,7 +10,7 @@ export default class RegionDelete implements RegionDeleteInterface {
     private _extraLayer: PIXI.Container;
     private _shapeLayer: PIXI.Container;
 
-    private _regionLayer: PIXI.Container; // 框选层
+    private readonly _regionLayer: PIXI.Container; // 框选层
     private _graph: ShapeGraphics; // 框选图形
     private _startDown: boolean; // 是否开始框选（pointerdown）
     private _startX: number; // 开始框选的点

@@ -19,18 +19,18 @@ export function drawShape(graphics: ShapeGraphics, shape: Shape, textScale: numb
         })
     }
     if (content.border.lineStyle === LineStyle.Solid) {
-        graphics.lineStyle(content.border.lineWidth, content.border.color, 1);
+        graphics.lineStyle(content.border.lineWidth, content.border.color, 0);
     }
 
     graphics.alpha = content.alpha as number; // 透明度
-    graphics.interactive = content.interactive == undefined ? true : content.interactive; // 为定义则默认开启
+    graphics.interactive = content.interactive == undefined ? true : content.interactive; // 未定义则默认开启
     // draw a shape
     for (let i = 0; i < shape.length; i++) {
         if (!shape[i]) {
             continue;
         }
         if (!hasMoveTo) {
-            graphics.moveTo(shape[i]![0], shape[i]![1]);
+            graphics.moveTo(shape[i][0], shape[i][1]);
             moveToPoint = shape[i];
             hasMoveTo = true;
             xMin = moveToPoint[0];
@@ -38,7 +38,7 @@ export function drawShape(graphics: ShapeGraphics, shape: Shape, textScale: numb
             yMin = moveToPoint[1];
             yMax = moveToPoint[1];
         } else {
-            graphics.lineTo(shape[i]![0], shape[i]![1]);
+            graphics.lineTo(shape[i][0], shape[i][1]);
         }
         //查找shape的边界
         xMin = xMin > shape[i][0] ? shape[i][0] : xMin;
@@ -52,6 +52,7 @@ export function drawShape(graphics: ShapeGraphics, shape: Shape, textScale: numb
     graphics.yMax = yMax;
 
     graphics.lineTo(moveToPoint[0], moveToPoint[1]);
+    graphics.closePath();
     graphics.endFill();
     //画虚线
     if (content.border.lineStyle === LineStyle.Dashed) {
@@ -186,23 +187,36 @@ function drawMark(graphics: ShapeGraphics, content: ShapeContent) {
 
 //line
 export function buildLine(line: LineGraphics, start: Point, end: Point) {
+// draw polygon
+//     const color = line.isHighlight ? 0x7ed321 : 0xa7acb2;
+//     const radius = 2;
+//     line.lineStyle(2, color, 1);
+//     line.beginFill(color, 1)
+//
+//     let radians = Math.atan2(end[1] - start[1], end[0] - start[0]);
+//     let dx = Math.sin(radians) * radius;
+//     let dy = Math.cos(radians) * radius;
+//
+//     let poly = new PIXI.Polygon(
+//         [start[0] + dx, start[1] - dy],
+//         [end[0] + dx, end[1] - dy],
+//         [end[0] - dx, end[1] + dy],
+//         [start[0] - dx, start[1] + dy]
+//     );
+//     line.drawPolygon(poly);
+//     line.hitArea = poly;
+//     line.endFill();
+//     line.startPoint = start;
+//     line.endPoint = end;
+
+
+    // ===========new ======================
+    // draw polygon
     const color = line.isHighlight ? 0x7ed321 : 0xa7acb2;
-    const radius = 2;
-    line.lineStyle(1, color, 1);
+    line.lineStyle(10, color, 1);
     line.beginFill(color, 1)
-
-    let radians = Math.atan2(end![1] - start![1], end![0] - start![0]);
-    let dx = Math.sin(radians) * radius;
-    let dy = Math.cos(radians) * radius;
-
-    let poly = new PIXI.Polygon(
-        [start![0] + dx, start![1] - dy],
-        [end![0] + dx, end![1] - dy],
-        [end![0] - dx, end![1] + dy],
-        [start![0] - dx, start![1] + dy]
-    );
-    line.drawPolygon(poly);
-    line.hitArea = poly;
+    line.moveTo(start[0],start[1])
+    line.lineTo(end[0], end[1]);
     line.endFill();
     line.startPoint = start;
     line.endPoint = end;

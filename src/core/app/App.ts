@@ -40,11 +40,10 @@ export default class App implements AppInterface, AppAPI {
         this.stateManager = new StateManager(this);
         this.pixiApp.stage.interactive = true;
         this.pixiApp.stage.on('pointerdown', (event: PIXI.InteractionEvent) => {
-            console.log(event)
             if (this.stateManager.isEnableFreeDrawing()) {
                 console.log('-----> pointerdown stage')
-                const {x, y} = event.data.global;
-                this.actionManager.addShape(x, y, 0, 0, defaultGraphStyle)
+                // const {x, y} = event.data.global;
+                // this.actionManager.addShape(x, y, 0, 0, defaultGraphStyle)
             }
         })
     }

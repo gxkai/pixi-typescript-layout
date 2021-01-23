@@ -1,6 +1,5 @@
 import { ShapeContent } from "../common/Graph";
 import { RegionDeleteCallBack } from "../graph/GraphInterface";
-import * as PIXI from 'pixi.js'
 
 // 用户普通行为
 export type Operation = {
