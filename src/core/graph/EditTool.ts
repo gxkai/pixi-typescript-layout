@@ -272,16 +272,13 @@ function addPointDragHandler(
         const nextLineEnd = nextLine.endPoint;
         nextLine.clear();
         buildLine(nextLine, [point.x, point.y], nextLineEnd);
+        // 重新渲染闭合图形
         handler([
             Math.round(point.x),
             Math.round(point.y)
         ]);
     }
     const onDragEnd = function () {
-        handler([
-            Math.round(point.x),
-            Math.round(point.y)
-        ]);
         point.off('pointermove', onDragMove)
             .off('pointerup', onDragEnd)
             .off('pointerupoutside', onDragEnd)
@@ -319,8 +316,7 @@ function addLineDragHandler(
         const nextLineEnd = nextLine.endPoint;
         nextLine.clear();
         buildLine(nextLine, [nextPoint.x, nextPoint.y], nextLineEnd);
-    }
-    const onDragEnd = function () {
+        // 重新渲染闭合图形
         line.clear();
         line.x = 0;
         line.y = 0;
@@ -334,6 +330,9 @@ function addLineDragHandler(
         ];
         buildLine(line, pP, nP);
         handler(pP, nP);
+
+    }
+    const onDragEnd = function () {
         line.off('pointermove', onDragMove)
             .off('pointerup', onDragEnd)
             .off('pointerupoutside', onDragEnd)
