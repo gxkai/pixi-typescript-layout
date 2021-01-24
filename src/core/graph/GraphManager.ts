@@ -1,26 +1,21 @@
-import { GraphManagerInterface, EraserInterface, EditToolInterface, RegionDeleteInterface, RegionDeleteCallBack, setGraphCallback } from "./GraphInterface";
 import {
-    Graph,
-    ShapeContent,
-    Shape,
-    ShapeGraphics,
-    GraphCache,
-    Point,
-    PointGraphics,
-    SelectEnum,
-    Background,
-    IndexableContent,
-} from "../common/Graph";
+    EditToolInterface,
+    EraserInterface,
+    GraphManagerInterface,
+    RegionDeleteCallBack,
+    RegionDeleteInterface,
+    setGraphCallback
+} from "./GraphInterface";
+import {Background, Graph, GraphCache, SelectEnum, Shape, ShapeContent, ShapeGraphics,} from "../common/Graph";
 import DragHelper from "./DragHelper";
 import AppInterface from "../app/AppInterface";
 import Eraser from "./Eraser"
 import GraphDrawing from './GraphDrawing'
-import ShadowShape from "./ShadowShape"
 import EditTool from "./EditTool";
-import { defaultGraphStyle } from "./constant";
+import {defaultGraphStyle} from "./constant";
 import RegionDelete from "./RegionDelete";
 import * as PIXI from 'pixi.js'
-import { cloneDeep } from "lodash";
+import {cloneDeep} from "lodash";
 
 export default class GraphManager extends GraphDrawing implements GraphManagerInterface {
     private readonly _extraLayer: PIXI.Container;

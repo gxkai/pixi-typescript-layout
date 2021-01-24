@@ -19,7 +19,7 @@ export function drawShape(graphics: ShapeGraphics, shape: Shape, textScale: numb
         })
     }
     if (content.border.lineStyle === LineStyle.Solid) {
-        graphics.lineStyle(content.border.lineWidth, content.border.color, 0);
+        graphics.lineStyle(content.border.lineWidth, content.border.color, 1);
     }
 
     graphics.alpha = content.alpha as number; // 透明度

@@ -195,6 +195,7 @@ $(function () {
         app.operationManager.addPoint(index[0]);
 
     })
+    //匹配店铺
     $("#addShadowShape").mousedown(() => {
         state.hasShadowShape = true;
         app.operationManager.addShadowShape(200, 100, shadowCon)

@@ -19,6 +19,7 @@ export default class EditTool implements EditToolInterface {
     private _selectHandler: SelectHandler;
     private _updateHandler: UpdateHandler;
     private _shape: Shape;
+    private _shapes: Shape[];
     private _content: ShapeContent;
     private _container: PIXI.Container;
 
@@ -157,6 +158,7 @@ export default class EditTool implements EditToolInterface {
         let newShape: Shape = this._shape;
         let pre = newShape[lineIndex] as [number, number];
         let next = newShape[lineIndex === (newShape.length - 1) ? 0 : (lineIndex + 1)] as [number, number];
+        // 取中间点
         let newPoint = [
             Math.round((next[0] + pre[0]) / 2),
             Math.round((next[1] + pre[1]) / 2)
@@ -176,7 +178,7 @@ export default class EditTool implements EditToolInterface {
         let nextPoint: PointGraphics;
         let nextLine: LineGraphics;
         this._layer.interactive = false;
-        console.log(`-----> select ${select.toLowerCase()}`)
+        console.log(`-----> select:${select} index:${index}`)
         switch (select) {
             case SelectEnum.Point:
                 this._drawEditLayer(false, { select, index })
