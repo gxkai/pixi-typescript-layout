@@ -45,6 +45,7 @@ export default class StateManager implements StateManagerInterface {
     }
 
     enableEdit(isEnabled: boolean) {
+        console.log(`-----> enableEdit ${isEnabled}`)
         this._editEnum = isEnabled ? EditEnum.Editing : EditEnum.Normal;
         this._selectEnum = SelectEnum.None;
         this._isEnableEraser = false;

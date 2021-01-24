@@ -12,15 +12,14 @@ function main() {
     const container = document.body;
     const app = new App(container);
     app.setGraph({
-        shapes: []// mockData
+        shapes:  [[[100,100],[100,300],[300,300],[300,100]]]//mockData
     }, {
         background: {
             url: 'test/Model.jpg'
         },
         shapesContent: []
     })
-    app.operationManager.enableEdit(true);
+    // app.operationManager.enableEdit(true);
     app.operationManager.enableFreeDrawing(true);
-    app.actionManager.addShape(100, 100, 200, 200, defaultGraphStyle)
 }
 main()

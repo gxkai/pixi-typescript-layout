@@ -117,6 +117,7 @@ export default class EditTool implements EditToolInterface {
     }
 
     private _drawBackShape(isInit: boolean) {
+        console.log(`_drawBackShape isInit:${isInit}`)
         const backShape = this._backShape;
         if (isInit) {
             backShape.name = "editShape";
@@ -178,7 +179,7 @@ export default class EditTool implements EditToolInterface {
         console.log(`-----> select ${select.toLowerCase()}`)
         switch (select) {
             case SelectEnum.Point:
-                this._drawEditLayer(false, { select, index });
+                this._drawEditLayer(false, { select, index })
                 const targetPoint = <PointGraphics>this._pointLayer.getChildByName(`point_${index}`);
                 // 只关心在layer里面的队形，不关心name里的index
                 targetIndex = this._pointLayer.getChildIndex(targetPoint);
@@ -217,7 +218,7 @@ export default class EditTool implements EditToolInterface {
                 this._layer.interactive = true;
                 this._drawEditLayer(false, true);
                 addShapeDragHandler(this._layer, (startPoint: PIXI.Point, endPoint: PIXI.Point) => {
-                    if ((startPoint.x !== endPoint.x) || (startPoint.y != endPoint.y)) {
+                    if ((startPoint.x !== endPoint.x) || (startPoint.y !== endPoint.y)) {
                         let x = endPoint.x - startPoint.x;
                         let y = endPoint.y - startPoint.y;
                         let newShape: Shape = [];
@@ -248,16 +249,20 @@ function addShapeDragHandler(
     let startPoint: PIXI.Point = new PIXI.Point();
     startPoint.copyFrom(shape.position);
     let endPoint: PIXI.Point = new PIXI.Point();
+    const onDragMove = function () {
 
+    }
     const onDragEnd = function () {
         endPoint.copyFrom(shape.position);
         handler(startPoint, endPoint);
         shape.x = 0;
         shape.y = 0;
-        shape.off('pointerup', onDragEnd)
+        shape.off('pointermove', onDragMove)
+            .off('pointerup', onDragEnd)
             .off('pointerupoutside', onDragEnd)
     }
-    shape.on("pointerup", onDragEnd)
+    shape.on('pointermove', onDragMove)
+        .on("pointerup", onDragEnd)
         .on('pointerupoutside', onDragEnd);
 }
 

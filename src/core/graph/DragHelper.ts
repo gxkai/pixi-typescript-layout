@@ -12,6 +12,7 @@ function onDragStart(event: PIXI.InteractionEvent) {
     let obj = <DraggableObj>event.currentTarget;
     obj.dragData = event.data;
     obj.dragging = 1;
+
     obj.dragPointerStart = event.data.getLocalPosition(obj.parent);
     obj.dragObjStart = new PIXI.Point();
     obj.dragObjStart.copyFrom(obj.position);
@@ -34,6 +35,7 @@ function onDragEnd(event: PIXI.InteractionEvent) {
 function onDragMove(event: PIXI.InteractionEvent) {
     let obj = <DraggableObj>event.currentTarget;
     if (!obj.dragging) return;
+    console.log(`onDragMove`)
     let data = obj.dragData as PIXI.InteractionData; // it can be different pointer!
     if (obj.dragging == 1) {
         // click or drag?

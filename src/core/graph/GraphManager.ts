@@ -178,7 +178,6 @@ export default class GraphManager extends GraphDrawing implements GraphManagerIn
             target.shapeIndex = shapeIndex;
             target.on('pointerdown', (event: PIXI.InteractionEvent) => {
                 console.log(`-----> pointerdown selectHandle ${state.toLowerCase()}`)
-                event.stopPropagation();
                 this._app.stateManager.select(state, [shapeIndex, idx]);
             });
             if (state === SelectEnum.Shape || state === SelectEnum.Line) {

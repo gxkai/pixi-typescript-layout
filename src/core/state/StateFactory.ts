@@ -13,6 +13,7 @@ export default function StateFactory(
 ): SelectSuperState {
     const ee = EditEnum;
     const se = SelectEnum;
+    console.log(`EditEnum=${eEnum} SelectEnum=${sEnum} enableEraser=${enableEraser} index=${index}`)
     switch (true) {
         case ((eEnum === ee.Editing) && enableEraser):
             return new EditingEraserState(index, sEnum);

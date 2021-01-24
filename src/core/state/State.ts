@@ -34,6 +34,7 @@ export abstract class SelectSuperState implements StateInterface {
 // 展示、选中
 export class NormalSelectState extends SelectSuperState {
     protected processLayer(graphManager: GraphManagerInterface, eventManager: EventManagerInterface): void {
+        console.log(`展示、选中 isChangingSelect=${this.isChangingSelect} _index=${this._index} _select=${this._select}`)
         graphManager.addDisplayLayer(this.isChangingSelect, this._index);
     }
 }
@@ -41,6 +42,7 @@ export class NormalSelectState extends SelectSuperState {
 // 编辑、选中
 export class EditingSelectState extends SelectSuperState {
     protected processLayer(graphManager: GraphManagerInterface, eventManager: EventManagerInterface): void {
+        console.log(`编辑、选中 isChangingSelect=${this.isChangingSelect} _index=${this._index} _select=${this._select}`)
         graphManager.addEditLayer(
             this.isChangingSelect, this._index, this._select);
     }
