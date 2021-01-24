@@ -19,7 +19,7 @@ function main() {
         },
         shapesContent: []
     })
-    // app.operationManager.enableEdit(true);
+    app.operationManager.enableEdit(true);
     app.operationManager.enableFreeDrawing(true);
 }
 main()
