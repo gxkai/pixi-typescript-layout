@@ -4,10 +4,10 @@ import {defaultGraphStyle, mockData} from "./core/graph/constant";
 export default App;
 
 declare global {
-    interface Window { CreamsPIXI: any; }
+    interface Window { TurboPIXI: any; }
 }
 
-window.CreamsPIXI = App;
+window.TurboPIXI = App;
 function main() {
     const container = document.body;
     const app = new App(container, {
