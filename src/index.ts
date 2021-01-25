@@ -10,15 +10,14 @@ declare global {
 window.CreamsPIXI = App;
 function main() {
     const container = document.body;
-    const app = new App(container);
-    app.setGraph({
+    const app = new App(container, {
         shapes:  [[[100,100],[100,300],[300,300],[300,100]]]//mockData
     }, {
         background: {
             url: 'test/Model.jpg'
         },
         shapesContent: []
-    })
+    });
     app.operationManager.enableEdit(true);
     app.operationManager.enableFreeDrawing(true);
 }

@@ -5,6 +5,7 @@ import DragHelper, {DraggableObj} from "./DragHelper";
 import {defaultGraphStyle} from "./constant";
 import * as PIXI from 'pixi.js'
 import {cloneDeep} from "lodash";
+import AppInterface from "../app/AppInterface";
 
 type Highlight = boolean | {
     select: SelectEnum,
@@ -19,7 +20,6 @@ export default class EditTool implements EditToolInterface {
     private _selectHandler: SelectHandler;
     private _updateHandler: UpdateHandler;
     private _shape: Shape;
-    private _shapes: Shape[];
     private _content: ShapeContent;
     private _container: PIXI.Container;
 

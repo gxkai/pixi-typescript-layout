@@ -61,13 +61,13 @@ export default class GraphDrawing {
         this._shapeLayer.removeChild(this._shapeLayer.getChildByName(name));
     }
 
-    // hideShapes(shapeIndex: number): void {
-    //     this._shapeLayer.getChildByName(shapeIndex.toString()).visible = false;
-    // }
+    hideShapes(shapeIndex: number): void {
+        this._shapeLayer.getChildByName(shapeIndex.toString()).visible = false;
+    }
 
-    // showShapes(shapeIndex: number): void {
-    //     this._shapeLayer.getChildByName(shapeIndex.toString()).visible = true;
-    // }
+    showShapes(shapeIndex: number): void {
+        this._shapeLayer.getChildByName(shapeIndex.toString()).visible = true;
+    }
 
     updateShapes(shape: Shape, shapeIndex: number, content?: ShapeContent, keepIndex?: boolean) {
         let curShape: ShapeGraphics;

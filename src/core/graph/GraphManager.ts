@@ -26,6 +26,7 @@ export default class GraphManager extends GraphDrawing implements GraphManagerIn
 
     constructor(app: AppInterface) {
         super(app);
+        this.setGraph(app.graph, app.cache);
         this._backgroundLayer = new PIXI.Container();
         this._backgroundLayer.name = "backgroundLayer";
         this._extraLayer = new PIXI.Container();

@@ -31,13 +31,19 @@ export default class App implements AppInterface, AppAPI {
     operationManager: OperationAPI;
     eventManager: EventCombine;
 
-    constructor(el: HTMLElement) {
+    constructor(el: HTMLElement, graph: Graph, cache: GraphCache) {
+        this._graph = graph;
+        this._cache = cache;
         this.pixiApp = this.init(el);
         this.graphManager = new GraphManager(this) as GraphManagerInterface;
         this.operationManager = new OperationManager(this);
         this.eventManager = new EventManager(this);
         this.actionManager = new ActionManager(this);
         this.stateManager = new StateManager(this);
+        // ===
+        this.actionManager.init(graph);
+        this.eventManager.bindAllHandler();
+        // ===
         this.pixiApp.stage.interactive = true;
         this.pixiApp.stage.on('pointerdown', (event: PIXI.InteractionEvent) => {
             if (this.stateManager.isEnableFreeDrawing()) {
@@ -74,10 +80,10 @@ export default class App implements AppInterface, AppAPI {
     }
 
     setGraph(graph: Graph, cache: GraphCache, callBack?: setGraphCallback) {
-        this._graph = graph;
-        this._cache = cache;
-        this.actionManager.init(graph);
-        this.graphManager.setGraph(graph, cache, callBack);
-        this.eventManager.bindAllHandler();
+        // this._graph = graph;
+        // this._cache = cache;
+        // this.actionManager.init(graph);
+        // this.graphManager.setGraph(graph, cache, callBack);
+        // this.eventManager.bindAllHandler();
     }
 }
