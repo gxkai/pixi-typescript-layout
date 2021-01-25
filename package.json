@@ -14,9 +14,11 @@
     "@types/lodash": "^4.14.168",
     "lodash": "^4.17.20",
     "pixi-fps": "^2.0.1",
-    "pixi.js": "^5.3.7"
+    "pixi.js": "^5.3.7",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/uuid": "^8.3.0",
     "awesome-typescript-loader": "^5.2.1",
     "copy-webpack-plugin": "^5.0.3",
     "html-webpack-plugin": "^3.2.0",

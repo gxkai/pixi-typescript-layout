@@ -5,7 +5,7 @@ const isProd = process.env.NODE_ENV === "production";
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: "./src/index2.ts",
   mode: isProd ? "production" : "development",
   devtool: 'inline-source-map',
   resolve: {
