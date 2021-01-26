@@ -21,6 +21,9 @@ export default class App implements AppInterface {
     rooms: RoomShape[] = [];
     lines: LineShape[] = [];
     points: PointShape[] = [];
+    roomsLayer: PIXI.Container = new PIXI.Container();
+    linesLayer: PIXI.Container = new PIXI.Container();
+    pointsLayer: PIXI.Container = new PIXI.Container();
     constructor(el:HTMLElement) {
         this.pixiApp = this.init(el)
     }
@@ -36,6 +39,9 @@ export default class App implements AppInterface {
             app.renderer.resize(el.offsetWidth, el.offsetHeight);
         });
         el.appendChild(app.view);
+        app.stage.addChild(this.roomsLayer)
+        app.stage.addChild(this.linesLayer)
+        app.stage.addChild(this.pointsLayer)
         return app;
     }
 
@@ -80,5 +86,62 @@ export default class App implements AppInterface {
         console.log({rooms:this.rooms});
         console.log({lines:this.lines});
         console.log({points:this.points});
+        this.lines.forEach(lineShape => {
+            this.linesLayer.addChild(this.drawLine(lineShape))
+        })
+        this.points.forEach(pointShape => {
+            this.pointsLayer.addChild(this.drawPoint(pointShape))
+        })
+        this.rooms.forEach(roomShape => {
+            this.roomsLayer.addChild(this.drawRoom(roomShape));
+        })
+    }
+
+    drawLine(lineShape:LineShape) {
+        const graphics  = new PIXI.Graphics();
+        const color = 0x000000
+        graphics.lineStyle(10, color, 1);
+        graphics.beginFill(color, 1)
+        const pointStart = lineShape.points[0];
+        const pointEnd = lineShape.points[1];
+        graphics.moveTo(pointStart[0], pointStart[1]);
+        graphics.lineTo(pointEnd[0], pointEnd[1]);
+        graphics.endFill();
+        graphics.hitArea = graphics.getBounds();
+        graphics.interactive = true;
+        return graphics;
+    }
+    drawPoint(pointShape: PointShape) {
+        const graphics  = new PIXI.Graphics();
+        const color = 0x000000
+        graphics.beginFill(color, 1)
+        graphics.drawCircle(0, 0, 10);
+        const point = pointShape.points[0];
+        graphics.x = point[0];
+        graphics.y = point[1];
+        graphics.endFill();
+        graphics.hitArea = graphics.getBounds();
+        graphics.interactive = true;
+        return graphics;
+    }
+    drawRoom(roomShape: RoomShape) {
+        const graphics  = new PIXI.Graphics();
+        const lineColor = 0x000000;
+        const fillColor = 0xffffff;
+        const fillImage = 'test/Floor.jpeg'
+        graphics.lineStyle(10, lineColor, 1);
+        graphics.beginFill(fillColor, 1)
+        graphics.beginTextureFill({
+            texture: new PIXI.Texture(PIXI.BaseTexture.from(fillImage)),
+        })
+        roomShape.points.forEach((value, index, array) => {
+            if (index === 0) {
+                graphics.moveTo(value[0], value[1])
+            } else {
+                graphics.lineTo(value[0], value[1]);
+            }
+        })
+        graphics.closePath();
+        return graphics;
     }
 }
